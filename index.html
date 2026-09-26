@@ -22,6 +22,218 @@
         <link rel="stylesheet" href="./css/default.css">
         <link rel="stylesheet" href="./css/style.css">
         <link rel="stylesheet" href="./css/responsive.css">
+
+        <!-- Modern refresh: typography + design system -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+        <style>
+            /* ---- Fox Technologies :: design tokens ----
+               Palette drawn from the brand's own signage blue rather than a stock kit:
+               a deep ink-navy for authority, a single cyan-teal working accent,
+               and a cool paper background instead of white or cream. */
+            :root{
+                --ft-navy-900:#0E2038;
+                --ft-navy-800:#152D4C;
+                --ft-navy-700:#1E3A5F;
+                --ft-teal-500:#0FA8A0;
+                --ft-teal-600:#0C8A83;
+                --ft-ink-900:#152233;
+                --ft-slate-600:#5B6B7E;
+                --ft-paper-50:#F6F8FA;
+                --ft-line:#E4E9EE;
+                --ft-white:#FFFFFF;
+                --ft-ease:cubic-bezier(.4,0,.2,1);
+            }
+
+            @media (prefers-reduced-motion: reduce){
+                *,*::before,*::after{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+            }
+
+            html{ scroll-behavior:smooth; }
+
+            body, p, li, span, input, textarea{
+                font-family:'Inter', sans-serif !important;
+                color:var(--ft-ink-900);
+            }
+            h1,h2,h3,h4,h5,h6,
+            .about-title h2, .about-title h3,
+            .section-title h2, .slider-content h2,
+            .second-services-content h5,
+            .f-widget-title h5{
+                font-family:'Manrope', sans-serif !important;
+                font-weight:700;
+                letter-spacing:-0.01em;
+            }
+
+            /* ---------- header ---------- */
+            #header-sticky{
+                background:rgba(255,255,255,.88) !important;
+                backdrop-filter:saturate(180%) blur(14px);
+                -webkit-backdrop-filter:saturate(180%) blur(14px);
+                border-bottom:1px solid transparent;
+                transition:background .35s var(--ft-ease), box-shadow .35s var(--ft-ease), border-color .35s var(--ft-ease);
+            }
+            #header-sticky.ft-scrolled{
+                box-shadow:0 8px 24px rgba(14,32,56,.08);
+                border-bottom-color:var(--ft-line);
+            }
+            .main-menu nav#mobile-menu > ul > li{ position:relative; }
+            .main-menu nav#mobile-menu > ul > li > a{
+                position:relative;
+                transition:color .25s var(--ft-ease);
+            }
+            .main-menu nav#mobile-menu > ul > li > a::after{
+                content:"";
+                position:absolute;
+                left:0; bottom:-6px;
+                width:0; height:2px;
+                background:var(--ft-teal-500);
+                transition:width .3s var(--ft-ease);
+            }
+            .main-menu nav#mobile-menu > ul > li:hover > a::after,
+            .main-menu nav#mobile-menu > ul > li.active > a::after{ width:100%; }
+
+            /* ---------- buttons ---------- */
+            .ss-btn{
+                position:relative;
+                overflow:hidden;
+                background:var(--ft-navy-900) !important;
+                border:1px solid var(--ft-navy-900) !important;
+                border-radius:4px;
+                z-index:1;
+                transition:color .35s var(--ft-ease), transform .25s var(--ft-ease), box-shadow .35s var(--ft-ease);
+            }
+            .ss-btn::before{
+                content:"";
+                position:absolute;
+                inset:0;
+                background:var(--ft-teal-500);
+                transform:scaleX(0);
+                transform-origin:left;
+                transition:transform .4s var(--ft-ease);
+                z-index:-1;
+            }
+            .ss-btn:hover::before{ transform:scaleX(1); }
+            .ss-btn:hover{
+                border-color:var(--ft-teal-500) !important;
+                transform:translateY(-2px);
+                box-shadow:0 10px 22px rgba(15,168,160,.28);
+            }
+
+            /* ---------- about section ---------- */
+            .about-title h3{
+                color:var(--ft-teal-600);
+                font-size:15px;
+                text-transform:none;
+                margin-bottom:6px;
+            }
+            .about-content p{ color:var(--ft-slate-600); line-height:1.8; }
+            .s-about-img img{
+                border-radius:10px;
+                transition:transform .6s var(--ft-ease);
+            }
+            .s-about-img:hover img{ transform:scale(1.02); }
+
+            /* ---------- what-we-do cards ---------- */
+            .services-two{ background:var(--ft-paper-50) !important; }
+            .s-single-services{
+                background:var(--ft-white);
+                border:1px solid var(--ft-line);
+                border-radius:12px;
+                padding:36px 24px 30px;
+                transition:transform .35s var(--ft-ease), box-shadow .35s var(--ft-ease), border-color .35s var(--ft-ease);
+            }
+            .s-single-services img{
+                transition:transform .35s var(--ft-ease);
+            }
+            .s-single-services:hover{
+                transform:translateY(-6px);
+                border-color:var(--ft-teal-500);
+                box-shadow:0 18px 34px rgba(14,32,56,.09);
+            }
+            .s-single-services:hover img{ transform:scale(1.08) rotate(-3deg); }
+            .second-services-content h5 a{
+                color:var(--ft-navy-900);
+                transition:color .25s var(--ft-ease);
+            }
+            .s-single-services:hover .second-services-content h5 a{ color:var(--ft-teal-600); }
+
+            /* ---------- section titles ---------- */
+            .section-title h2{ color:var(--ft-navy-900); }
+            .section-title img{ display:none; } /* replace stock divider graphic */
+            .section-title{ position:relative; }
+            .section-title.center-align::after{
+                content:"";
+                display:block;
+                width:56px; height:3px;
+                background:var(--ft-teal-500);
+                margin:14px auto 0;
+                border-radius:2px;
+                transform:scaleX(0);
+                transform-origin:center;
+                transition:transform .5s var(--ft-ease);
+            }
+            .section-title.center-align.ft-revealed::after{ transform:scaleX(1); }
+
+            /* ---------- client logos ---------- */
+            .team-thumb img{
+                filter:grayscale(100%);
+                opacity:.65;
+                transition:filter .4s var(--ft-ease), opacity .4s var(--ft-ease), transform .4s var(--ft-ease);
+            }
+            .single-team:hover .team-thumb img{
+                filter:grayscale(0%);
+                opacity:1;
+                transform:translateY(-4px);
+            }
+
+            /* ---------- contact form ---------- */
+            .contact-field input, .contact-field textarea{
+                border:1px solid var(--ft-line) !important;
+                border-radius:6px;
+                transition:border-color .25s var(--ft-ease), box-shadow .25s var(--ft-ease);
+            }
+            .contact-field input:focus, .contact-field textarea:focus{
+                border-color:var(--ft-teal-500) !important;
+                box-shadow:0 0 0 3px rgba(15,168,160,.15);
+                outline:none;
+            }
+
+            /* ---------- footer ---------- */
+            .footer-bg{ background:var(--ft-navy-900) !important; }
+            .f-widget-title h5{ color:var(--ft-white); }
+            .footer-widget p, .footer-link li, .footer-link a, .f-contact li span{
+                color:#B8C4D2 !important;
+            }
+            .footer-link a:hover{ color:var(--ft-teal-500) !important; }
+            .footer-social a{
+                transition:transform .25s var(--ft-ease), background .25s var(--ft-ease);
+            }
+            .footer-social a:hover{
+                transform:translateY(-3px);
+                background:var(--ft-teal-500) !important;
+            }
+
+            /* ---------- scroll reveal ---------- */
+            .ft-reveal{
+                opacity:0;
+                transform:translateY(18px);
+                transition:opacity .6s var(--ft-ease), transform .6s var(--ft-ease);
+            }
+            .ft-reveal.ft-revealed{ opacity:1; transform:translateY(0); }
+            .services-two .col-lg-4:nth-child(1) .ft-reveal{ transition-delay:.05s; }
+            .services-two .col-lg-4:nth-child(2) .ft-reveal{ transition-delay:.1s; }
+            .services-two .col-lg-4:nth-child(3) .ft-reveal{ transition-delay:.15s; }
+            .services-two .col-lg-4:nth-child(4) .ft-reveal{ transition-delay:.2s; }
+            .services-two .col-lg-4:nth-child(5) .ft-reveal{ transition-delay:.05s; }
+            .services-two .col-lg-4:nth-child(6) .ft-reveal{ transition-delay:.1s; }
+            .services-two .col-lg-4:nth-child(7) .ft-reveal{ transition-delay:.15s; }
+            .services-two .col-lg-4:nth-child(8) .ft-reveal{ transition-delay:.2s; }
+            .team-active .col-xl-4:nth-child(3n+1) .ft-reveal{ transition-delay:0s; }
+            .team-active .col-xl-4:nth-child(3n+2) .ft-reveal{ transition-delay:.08s; }
+            .team-active .col-xl-4:nth-child(3n) .ft-reveal{ transition-delay:.16s; }
+        </style>
     </head>
     <body>
      <!-- header -->
@@ -97,7 +309,7 @@
                                            
                                             <li><a href="industries.html">Industries</a></li>
                                                                         
-                                            <li><a href="career.html">Career</a></li>
+                                            
                                             <li><a href="contact.html">Contact</a></li>                                               
                                         </ul>
                                     </nav>
@@ -416,7 +628,7 @@
 
                         <div class="col-lg-4 col-md-12">
                             
-                            <div class="s-single-services text-center">
+                            <div class="s-single-services text-center ft-reveal">
                             <img style="width: 100px; height: 100px;" src="img/icon/tc.png"><br><br>
                                 <div class="second-services-content">
                                     <h5><a href="#">Technology Consulting</a></h5>       
@@ -427,7 +639,7 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-12">
-                             <div class="s-single-services text-center">
+                             <div class="s-single-services text-center ft-reveal">
                                 <img style="width: 100px; height: 100px;" src="img/icon/ad.png"><br><br>
                                 <div class="second-services-content">
                                     <h5><a href="services-detail.html">Big Data & Advanced Analytics</a></h5>       
@@ -438,7 +650,7 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-12">
-                            <div class="s-single-services text-center">
+                            <div class="s-single-services text-center ft-reveal">
                                 <img style="width: 100px; height: 100px;" src="img/icon/mm.png"><br><br>
                                 <div class="second-services-content">
                                     <h5><a href="services-detail.html">Multimedia</a></h5>       
@@ -450,7 +662,7 @@
                         </div>
 
                         <div class="col-lg-4 col-md-12">
-                            <div class="s-single-services text-center">
+                            <div class="s-single-services text-center ft-reveal">
                                 <img style="width: 100px; height: 100px;" src="img/icon/wd.png"><br><br>
                                 <div class="second-services-content">
                                     <h5><a href="services-detail.html">Web Development</a></h5>       
@@ -463,7 +675,7 @@
 
 
                         <div class="col-lg-4 col-md-12">
-                            <div class="s-single-services text-center">
+                            <div class="s-single-services text-center ft-reveal">
                                 <img style="width: 100px; height: 100px;" src="img/icon/cc.png"><br><br>
                                 <div class="second-services-content">
                                     <h5><a href="">Cloud Computing</a></h5>       
@@ -476,7 +688,7 @@
 
 
                         <div class="col-lg-4 col-md-12">
-                            <div class="s-single-services text-center">
+                            <div class="s-single-services text-center ft-reveal">
                                 <img style="width: 100px; height: 100px;" src="img/icon/adx.png"><br><br>
                                 <div class="second-services-content">
                                     <h5><a href="">Application Development</a></h5>       
@@ -488,7 +700,7 @@
                         </div>
 
                         <div class="col-lg-4 col-md-12">
-                            <div class="s-single-services text-center">
+                            <div class="s-single-services text-center ft-reveal">
                                 <img style="width: 100px; height: 100px;" src="img/icon/si.png"><br><br>
                                 <div class="second-services-content">
                                     <h5><a href="#">System Integration</a></h5>       
@@ -500,7 +712,7 @@
                         </div>
 
                         <div class="col-lg-4 col-md-12">
-                            <div class="s-single-services text-center">
+                            <div class="s-single-services text-center ft-reveal">
                                 <img style="width: 100px; height: 100px;" src="img/icon/st.png"><br><br>
                                 <div class="second-services-content">
                                     <h5><a href="">Staffing</a></h5>       
@@ -644,7 +856,7 @@
                     </div>
                     <div class="row team-active">                   
                         <div class="col-xl-4">
-                            <div class="single-team text-center mb-30 ">
+                            <div class="single-team text-center mb-30 ft-reveal">
                                 <div class="team-thumb">
                                     <div class="brd">
                                          <img src="img/team/tm.jpg" alt="img">
@@ -654,7 +866,7 @@
                             </div>
                         </div>
                         <div class="col-xl-4">
-                            <div class="single-team text-center mb-30 ">
+                            <div class="single-team text-center mb-30 ft-reveal">
                                 <div class="team-thumb">
                                     <div class="brd">
                                         <img src="img/team/tm2.jpg" alt="img">
@@ -664,7 +876,7 @@
                             </div>
                         </div>
                        <div class="col-xl-4">
-                            <div class="single-team text-center mb-30 ">
+                            <div class="single-team text-center mb-30 ft-reveal">
                                 <div class="team-thumb">
                                     <div class="brd">
                                         <img src="img/team/tm3.jpg" alt="img">
@@ -674,7 +886,7 @@
                             </div>
                         </div>
                         <div class="col-xl-4">
-                            <div class="single-team text-center mb-30 ">
+                            <div class="single-team text-center mb-30 ft-reveal">
                                 <div class="team-thumb">
                                     <div class="brd">
                                          <img src="img/team/tm4.jpg" alt="img">
@@ -684,7 +896,7 @@
                             </div>
                         </div>
                         <div class="col-xl-4">
-                            <div class="single-team text-center mb-30 ">
+                            <div class="single-team text-center mb-30 ft-reveal">
                                 <div class="team-thumb">
                                     <div class="brd">
                                         <img src="img/team/tm5.jpg" alt="img">
@@ -694,7 +906,7 @@
                             </div>
                         </div>
                        <div class="col-xl-4">
-                            <div class="single-team text-center mb-30 ">
+                            <div class="single-team text-center mb-30 ft-reveal">
                                 <div class="team-thumb">
                                     <div class="brd">
                                         <img src="img/team/tm6.jpg" alt="img">
@@ -704,7 +916,7 @@
                             </div>
                         </div>
                         <div class="col-xl-4">
-                            <div class="single-team text-center mb-30 ">
+                            <div class="single-team text-center mb-30 ft-reveal">
                                 <div class="team-thumb">
                                     <div class="brd">
                                         <img src="img/team/tm7.jpg" alt="img">
@@ -714,7 +926,7 @@
                             </div>
                         </div>
                         <div class="col-xl-4">
-                            <div class="single-team text-center mb-30 ">
+                            <div class="single-team text-center mb-30 ft-reveal">
                                 <div class="team-thumb">
                                     <div class="brd">
                                         <img src="img/team/tm8.jpg" alt="img">
@@ -724,7 +936,7 @@
                             </div>
                         </div>
                         <div class="col-xl-4">
-                            <div class="single-team text-center mb-30 ">
+                            <div class="single-team text-center mb-30 ft-reveal">
                                 <div class="team-thumb">
                                     <div class="brd">
                                         <img src="img/team/tm9.jpg" alt="img">
@@ -818,7 +1030,7 @@
                         
                         
 
-                        <div class="col-xl-4 col-lg-2 col-sm-6">
+                        <div class="col-xl-3 col-lg-3 col-sm-6">
                             <div class="footer-widget mb-30">
                                 <div class="f-widget-title">
                                     <h5>About</h5>
@@ -840,7 +1052,6 @@
                                         <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
                                         <li><a href="#"><i class="fas fa-chevron-right"></i> Courses</a></li>
                                         <li><a href="#"><i class="fas fa-chevron-right"></i> Industries</a></li>
-                                        <li><a href="#"><i class="fas fa-chevron-right"></i> Career</a></li>
                                         <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
                                     </ul>
                                 </div>
@@ -851,7 +1062,7 @@
                         <div class="col-xl-3 col-lg-3 col-sm-6">
                             <div class="footer-widget mb-30">
                                 <div class="f-widget-title">
-                                    <h5>Contact Us</h5>
+                                    <h5>US Office</h5>
                                 </div>
                                 <div class="footer-link">
                                     <div class="f-contact">
@@ -876,6 +1087,27 @@
                                 </div>
                             </div>
                         </div> 
+
+                        <div class="col-xl-4 col-lg-4 col-sm-6">
+                            <div class="footer-widget mb-30">
+                                <div class="f-widget-title">
+                                    <h5>India Office</h5>
+                                </div>
+                                <div class="footer-link">
+                                    <div class="f-contact">
+                                    <ul>
+                                    <li>
+                                      <i class="fal fa-map-marker-alt"></i>
+                                         <span>3rd Floor, Block 1, Cyber Pearl<br> Hyderabad, Telangana,<br> India</span>
+                                    </li>
+                                </ul>
+                                    
+                                    </div>
+                                   
+                                    
+                                </div>
+                            </div>
+                        </div>
                         
                         
                     </div>
@@ -923,6 +1155,39 @@
         <script src="./js/jquery.magnific-popup.min.js"></script>
         <script src="./js/element-in-view.js"></script>
         <script src="./js/main.js"></script>
+
+        <!-- Modern refresh: header state + scroll reveal -->
+        <script>
+        (function(){
+            var header = document.getElementById('header-sticky');
+            function onScroll(){
+                if(!header) return;
+                if(window.scrollY > 40){ header.classList.add('ft-scrolled'); }
+                else { header.classList.remove('ft-scrolled'); }
+            }
+            window.addEventListener('scroll', onScroll, { passive:true });
+            onScroll();
+
+            if('IntersectionObserver' in window){
+                var io = new IntersectionObserver(function(entries){
+                    entries.forEach(function(entry){
+                        if(entry.isIntersecting){
+                            entry.target.classList.add('ft-revealed');
+                            io.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold:0.15, rootMargin:'0px 0px -40px 0px' });
+
+                document.querySelectorAll('.ft-reveal, .section-title').forEach(function(el){
+                    io.observe(el);
+                });
+            } else {
+                document.querySelectorAll('.ft-reveal, .section-title').forEach(function(el){
+                    el.classList.add('ft-revealed');
+                });
+            }
+        })();
+        </script>
     </body>
 
 </html>
